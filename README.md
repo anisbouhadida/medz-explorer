@@ -1,59 +1,220 @@
-# MedzExplorer
+# 💊 Medz Explorer Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Welcome to **Medz Explorer**, the frontend application of the MEDZ ecosystem.
+This application provides an intuitive interface for exploring Algerian medicines data and offers a dedicated space for developers to understand and interact with the Medz API.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Overview
+
+Medz Explorer is designed with two main objectives:
+
+* **Data Exploration**: Enable users to easily search, filter, and visualize medicines data.
+* **Developer Enablement**: Provide clear and interactive API documentation for seamless integration.
+
+---
+
+## ✨ Features
+
+### 🔍 Data Exploration
+
+* Browse a comprehensive database of Algerian medicines
+* Advanced search (name, category, etc.)
+* Dynamic filtering (manufacturer, usage, classification…)
+* Detailed medicine view with structured data
+
+### 📘 API Documentation
+
+* Interactive API documentation (endpoints, parameters, responses)
+* Authentication guidelines
+* Real-world usage examples
+* Developer-friendly UI for testing endpoints (future-ready for Swagger / OpenAPI integration)
+
+### 🎨 User Experience
+
+* Clean and responsive UI
+* Material Design components
+* Optimized for performance and scalability
+
+---
+
+## 🧱 Tech Stack
+
+| Layer        | Technology                |
+| ------------ | ------------------------- |
+| Framework    | Angular 21                |
+| UI Library   | Angular Material          |
+| Styling      | Tailwind CSS 4            |
+| Architecture | Modular & Component-Based |
+
+---
+
+## 📁 Project Structure
+
+```bash
+src/
+├── app/
+│   ├── core/           # Singleton services, interceptors, guards
+│   ├── shared/         # Reusable components, pipes, directives
+│   ├── features/
+│   │   ├── medicines/  # Medicine exploration module
+│   │   ├── docs/       # API documentation module
+│   ├── layout/         # Layout components (navbar, sidebar)
+│   └── app.routes.ts
+├── assets/
+└── environments/
+```
+
+---
+
+## ⚙️ Getting Started
+
+### 📋 Prerequisites
+
+* Node.js (v18+ recommended)
+* Angular CLI
+* npm or yarn
+
+---
+
+### 📦 Installation
+
+```bash
+git clone https://github.com/your-organization/Medz-explorer.git
+cd Medz-explorer
+npm install
+```
+
+---
+
+### ▶️ Run the Application
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Application will be available at:
 
-## Code scaffolding
+👉 [http://localhost:4200/](http://localhost:4200/)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
+## 🌍 Environment Configuration
+
+Update the environment files:
+
+```ts
+// src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiBaseUrl: 'https://api.yourdomain.com/Medz'
+};
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## 🔗 API Integration
+
+### Base URL
+
+```plaintext
+https://api.yourdomain.com/Medz
 ```
 
-## Building
+### Authentication
 
-To build the project run:
+All requests must include:
 
-```bash
-ng build
+```http
+Authorization: Bearer YOUR_API_KEY
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Example Request
 
-## Running unit tests
+```javascript
+fetch(`${environment.apiBaseUrl}/medicine-list`, {
+  headers: {
+    Authorization: 'Bearer YOUR_API_KEY'
+  }
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
+
+## 🧩 Core Modules
+
+### 🧪 Medicines Module
+
+* List view with pagination
+* Filters & search
+* Medicine detail page
+
+### 📚 Documentation Module
+
+* API endpoints reference
+* Request/response schemas
+* Integration examples
+
+---
+
+## 🛠️ Development Guidelines
+
+* Follow Angular best practices (standalone components, signals if applicable)
+* Use a **feature-based architecture**
+* Keep components **dumb** and delegate logic to services
+* Centralize API calls in dedicated services
+* Use interceptors for authentication & error handling
+
+---
+
+## 🧪 Testing
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🚀 Future Improvements
 
-```bash
-ng e2e
+* 🔄 API playground (try endpoints directly)
+* 📊 Data visualization (charts & analytics)
+* 🌐 Internationalization (i18n)
+* 🔐 Role-based access (admin / developer views)
+* 📱 Mobile-first enhancements
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+Please refer to:
+
+```
+CONTRIBUTING.md
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📄 License
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License.
+
+---
+
+## 🙌 Acknowledgements
+
+* Algerian public health data sources (MIPH)
+* Open-source community
+* Contributors to the MEDZ ecosystem
+
+---
+
+## 📎 Useful Links
+
+* API Docs: [https://docs.yourdomain.com/Medz-explorer](https://docs.yourdomain.com/Medz-explorer)
+* Backend Repository: (to be added)
+* MEDZ Project: (to be added)
