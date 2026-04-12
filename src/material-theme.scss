@@ -1,0 +1,82 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+        theme-type: light,
+      ),
+      typography: Inter,
+      density: 0,
+    )
+  );
+
+  --medz-primary: #003f87;
+  --medz-primary-soft: #d8e2ff;
+  --medz-secondary: #31567f;
+  --medz-secondary-soft: #dfe8f7;
+  --medz-tertiary: #5b6980;
+  --medz-surface-lowest: #ffffff;
+  --medz-surface: #f8f9ff;
+  --medz-surface-low: #fbfcff;
+  --medz-surface-high: #eef3ff;
+  --medz-surface-highest: #e8eefb;
+  --medz-on-surface: #0b1c30;
+  --medz-on-surface-muted: #4d617a;
+  --medz-outline-variant: rgba(0, 63, 135, 0.2);
+  --medz-glass: rgba(255, 255, 255, 0.7);
+  --medz-shadow: 0 12px 40px rgba(11, 28, 48, 0.04);
+  --medz-status-success: #2f6d52;
+  --medz-status-success-fill: rgba(47, 109, 82, 0.1);
+  --medz-status-warning: #9f6a15;
+  --medz-status-warning-fill: rgba(159, 106, 21, 0.1);
+
+  --mat-sys-primary: var(--medz-primary);
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: var(--medz-primary-soft);
+  --mat-sys-on-primary-container: #001c3b;
+  --mat-sys-secondary: var(--medz-secondary);
+  --mat-sys-on-secondary: #ffffff;
+  --mat-sys-secondary-container: var(--medz-secondary-soft);
+  --mat-sys-on-secondary-container: #12253c;
+  --mat-sys-tertiary: var(--medz-tertiary);
+  --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-surface: var(--medz-surface);
+  --mat-sys-surface-dim: #edf2fb;
+  --mat-sys-surface-bright: var(--medz-surface-lowest);
+  --mat-sys-surface-container-lowest: var(--medz-surface-lowest);
+  --mat-sys-surface-container-low: var(--medz-surface-low);
+  --mat-sys-surface-container: #f3f6fe;
+  --mat-sys-surface-container-high: var(--medz-surface-high);
+  --mat-sys-surface-container-highest: var(--medz-surface-highest);
+  --mat-sys-on-surface: var(--medz-on-surface);
+  --mat-sys-on-surface-variant: var(--medz-on-surface-muted);
+  --mat-sys-outline-variant: var(--medz-outline-variant);
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font-family: 'Inter', sans-serif;
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}

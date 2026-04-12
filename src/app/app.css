@@ -1,0 +1,63 @@
+:host {
+	display: block;
+}
+
+.medz-shell {
+	position: relative;
+	isolation: isolate;
+}
+
+.medz-shell::before,
+.medz-shell::after {
+	border-radius: 999px;
+	content: '';
+	filter: blur(50px);
+	pointer-events: none;
+	position: absolute;
+	z-index: -1;
+}
+
+.medz-shell::before {
+	background: rgba(211, 228, 254, 0.75);
+	height: 18rem;
+	right: 2rem;
+	top: 1rem;
+	width: 18rem;
+}
+
+.medz-shell::after {
+	background: rgba(0, 63, 135, 0.08);
+	bottom: 5rem;
+	height: 16rem;
+	left: -3rem;
+	width: 16rem;
+}
+
+.catalogue-card {
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		background-color 180ms ease;
+}
+
+.catalogue-card:hover {
+	background-color: var(--medz-surface-low);
+	box-shadow: 0 18px 48px rgba(11, 28, 48, 0.08);
+	transform: translateY(-3px);
+}
+
+@media (max-width: 640px) {
+	.medz-shell::before {
+		height: 12rem;
+		right: 0;
+		top: 2rem;
+		width: 12rem;
+	}
+
+	.medz-shell::after {
+		bottom: 12rem;
+		height: 10rem;
+		left: -2rem;
+		width: 10rem;
+	}
+}

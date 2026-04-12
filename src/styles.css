@@ -1,3 +1,125 @@
-/* You can add global styles to this file, and also import other style files */
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 @import 'tailwindcss';
+
+:root {
+	color: var(--medz-on-surface);
+	font-family: 'Inter', sans-serif;
+	scroll-behavior: smooth;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	min-height: 100%;
+}
+
+body {
+	background:
+		radial-gradient(circle at top center, rgba(211, 228, 254, 0.4) 0%, rgba(211, 228, 254, 0) 42%),
+		linear-gradient(180deg, var(--medz-surface-highest) 0%, var(--medz-surface) 28%, var(--medz-surface-lowest) 100%);
+}
+
+a {
+	color: inherit;
+}
+
+::selection {
+	background-color: color-mix(in srgb, var(--medz-primary) 18%, white);
+	color: var(--medz-on-surface);
+}
+
+:focus-visible {
+	outline: 2px solid color-mix(in srgb, var(--medz-primary) 35%, white);
+	outline-offset: 4px;
+}
+
+.glass-panel {
+	background: var(--medz-glass);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	box-shadow: var(--medz-shadow);
+}
+
+.tonal-section {
+	background: var(--medz-surface-low);
+}
+
+.status-badge {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 999px;
+	font-size: 0.625rem;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	padding: 0.45rem 0.7rem;
+	text-transform: uppercase;
+}
+
+.status-badge--success {
+	background: var(--medz-status-success-fill);
+	color: var(--medz-status-success);
+}
+
+.status-badge--warning {
+	background: var(--medz-status-warning-fill);
+	color: var(--medz-status-warning);
+}
+
+.medz-search-field {
+	width: 100%;
+}
+
+.medz-search-field .mat-mdc-text-field-wrapper {
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	background: rgba(255, 255, 255, 0.76);
+	border-radius: 999px;
+	box-shadow: inset 0 1px 2px rgba(11, 28, 48, 0.08);
+}
+
+.medz-search-field .mdc-notched-outline__leading,
+.medz-search-field .mdc-notched-outline__notch,
+.medz-search-field .mdc-notched-outline__trailing {
+	border-color: rgba(0, 63, 135, 0.12) !important;
+}
+
+.medz-search-field:hover .mdc-notched-outline__leading,
+.medz-search-field:hover .mdc-notched-outline__notch,
+.medz-search-field:hover .mdc-notched-outline__trailing {
+	border-color: rgba(0, 63, 135, 0.22) !important;
+}
+
+.medz-search-field.mat-focused .mat-mdc-text-field-wrapper {
+	box-shadow:
+		0 0 0 1rem rgba(0, 63, 135, 0.05),
+		inset 0 1px 2px rgba(11, 28, 48, 0.08);
+}
+
+.medz-search-field.mat-focused .mdc-notched-outline__leading,
+.medz-search-field.mat-focused .mdc-notched-outline__notch,
+.medz-search-field.mat-focused .mdc-notched-outline__trailing {
+	border-color: rgba(0, 63, 135, 0.32) !important;
+}
+
+.medz-primary-button {
+	--mdc-filled-button-container-color: var(--medz-primary);
+	--mdc-filled-button-label-text-color: #ffffff;
+	border-radius: 999px !important;
+	box-shadow: var(--medz-shadow);
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+
+.medz-secondary-button {
+	--mdc-outlined-button-outline-color: rgba(0, 63, 135, 0.14);
+	--mdc-outlined-button-label-text-color: var(--medz-primary);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 999px !important;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
