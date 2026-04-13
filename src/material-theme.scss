@@ -21,17 +21,22 @@ html {
 
   --medz-primary: #003f87;
   --medz-primary-soft: #d8e2ff;
-  --medz-secondary: #31567f;
-  --medz-secondary-soft: #dfe8f7;
-  --medz-tertiary: #5b6980;
+  --medz-secondary: #006a61;
+  --medz-secondary-soft: #d8f0ec;
+  --medz-secondary-pop: #34d399;
+  --medz-secondary-pop-soft: #d8faee;
+  --medz-tertiary: #0056b3;
+  --medz-tertiary-pop: #3b82f6;
+  --medz-tertiary-soft: #d9e8ff;
+  --medz-neutral: #0b1c30;
   --medz-surface-lowest: #ffffff;
   --medz-surface: #f8f9ff;
   --medz-surface-low: #fbfcff;
   --medz-surface-high: #eef3ff;
   --medz-surface-highest: #e8eefb;
-  --medz-on-surface: #0b1c30;
-  --medz-on-surface-muted: #4d617a;
-  --medz-outline-variant: rgba(0, 63, 135, 0.2);
+  --medz-on-surface: var(--medz-neutral);
+  --medz-on-surface-muted: #516175;
+  --medz-outline-variant: rgba(11, 28, 48, 0.18);
   --medz-glass: rgba(255, 255, 255, 0.7);
   --medz-shadow: 0 12px 40px rgba(11, 28, 48, 0.04);
   --medz-status-success: #2f6d52;
@@ -46,9 +51,11 @@ html {
   --mat-sys-secondary: var(--medz-secondary);
   --mat-sys-on-secondary: #ffffff;
   --mat-sys-secondary-container: var(--medz-secondary-soft);
-  --mat-sys-on-secondary-container: #12253c;
+  --mat-sys-on-secondary-container: #00201d;
   --mat-sys-tertiary: var(--medz-tertiary);
+  --mat-sys-tertiary-container: var(--medz-tertiary-soft);
   --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-on-tertiary-container: #001b3d;
   --mat-sys-surface: var(--medz-surface);
   --mat-sys-surface-dim: #edf2fb;
   --mat-sys-surface-bright: var(--medz-surface-lowest);
@@ -59,6 +66,7 @@ html {
   --mat-sys-surface-container-highest: var(--medz-surface-highest);
   --mat-sys-on-surface: var(--medz-on-surface);
   --mat-sys-on-surface-variant: var(--medz-on-surface-muted);
+  --mat-sys-neutral: var(--medz-neutral);
   --mat-sys-outline-variant: var(--medz-outline-variant);
 }
 
@@ -80,3 +88,29 @@ body {
   margin: 0;
   height: 100%;
 }
+
+:root {
+  @include mat.chips-overrides((
+    label-text-color: var(--medz-primary),
+    outline-color: var(--medz-primary),
+    hover-state-layer-color: var(--medz-primary),
+  ));
+
+    @include mat.toolbar-overrides((
+    container-background-color: transparent,
+  ));
+
+    @include mat.table-overrides((
+    row-item-outline-color: var(--medz-tertiary-soft),
+  ));
+}
+
+#system-status {
+  @include mat.chips-overrides((
+    label-text-color: var(--medz-status-success),
+    outline-color: var(--medz-status-success),
+    hover-state-layer-color: var(--medz-status-success),
+  ));
+}
+
+
