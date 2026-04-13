@@ -18,7 +18,7 @@
 }
 
 .medz-shell::before {
-	background: rgba(211, 228, 254, 0.75);
+	background: rgba(134, 182, 253, 0.431);
 	height: 18rem;
 	right: 2rem;
 	top: 1rem;
@@ -26,7 +26,7 @@
 }
 
 .medz-shell::after {
-	background: rgba(0, 63, 135, 0.08);
+	background: rgba(0, 79, 170, 0.271);
 	bottom: 5rem;
 	height: 16rem;
 	left: -3rem;
