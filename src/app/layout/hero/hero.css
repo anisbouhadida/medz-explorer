@@ -1,0 +1,11 @@
+.hero-status-dot {
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 999px;
+	background: var(--medz-secondary-pop);
+	box-shadow:
+		0 0 0 0.2rem color-mix(in srgb, var(--medz-secondary-pop) 24%, transparent),
+		0 0 1rem color-mix(in srgb, var(--medz-secondary-pop) 70%, white);
+	flex: 0 0 auto;
+}
+

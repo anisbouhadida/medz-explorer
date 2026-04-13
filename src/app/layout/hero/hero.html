@@ -1,0 +1,63 @@
+<header class="flex h-[calc(100vh-8rem)] items-center justify-around gap-8">
+  <div class="max-w-3xl space-y-5">
+    <mat-chip class="mb-1 uppercase">
+      <mat-icon matChipAvatar>code</mat-icon>
+      Built for Algerian Developers
+    </mat-chip>
+    <div class="space-y-3.5">
+      <h1 data-testid="page-title" class="text-5xl font-bold leading-none sm:text-6xl xl:text-8xl">
+        Explore Data,
+        <span
+          class="bg-linear-to-r from-(--medz-tertiary) to-(--medz-secondary-pop) bg-clip-text text-transparent"
+        >
+          Integrate Faster.
+        </span>
+      </h1>
+      <p class="max-w-2xl text-lg leading-8 text-(--medz-on-surface-muted) font-normal">
+        Explore official medicines data published by Algeria’s MIPH and accelerate development with
+        a developer-ready API.
+      </p>
+    </div>
+    <div class="space-y-4 flex space-between max-w-max flex-wrap gap-4">
+      <button matButton="filled">
+        Explore database<mat-icon iconPositionEnd>search</mat-icon>
+      </button>
+      <button matButton="outlined">Use API<mat-icon iconPositionEnd>api</mat-icon></button>
+    </div>
+  </div>
+
+  <aside id="system-status">
+    <mat-card appearance="outlined" class="p-4">
+      <mat-card-header class="mb-5">
+        <mat-card-title class="uppercase text-(--medz-primary)">System status</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <dl class="grid gap-12 text-medz-ink">
+          <div>
+            <dt class="text-xs uppercase tracking-[0.18em] text-medz-muted mb-2">
+              Total database entries
+            </dt>
+            <dd class="mt-2 text-2xl font-extrabold">14,250+</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.18em] text-medz-muted mb-2">API status</dt>
+            <dd
+              class="text-2xl border text-center border-(--medz-secondary-pop) text-(--medz-secondary) bg-(--medz-secondary-soft) rounded-md font-medium"
+            >
+              <p class="inline-flex items-center justify-center gap-2 m-0 px-2 py-1">
+                <span class="hero-status-dot" aria-hidden="true"></span>
+                Operational
+              </p>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.18em] text-medz-muted mb-2">
+              last data Refresh
+            </dt>
+            <dd class="text-2xl font-extrabold">February 2026</dd>
+          </div>
+        </dl>
+      </mat-card-content>
+    </mat-card>
+  </aside>
+</header>
