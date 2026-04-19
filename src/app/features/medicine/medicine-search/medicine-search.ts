@@ -1,4 +1,12 @@
-import { Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,27 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { Medicine } from '../../../shared/service/api/medicine';
+import { Medicine as MedicineModel, MedicineStatus } from '../../../shared/model/medicine';
 
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+type MedicineTableRow = Pick<
+  MedicineModel,
+  'brandName' | 'code' | 'registrationNumber' | 'laboratoryHolder'
+>;
 @Component({
   selector: 'app-medicine-search',
   imports: [
@@ -40,15 +34,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
   ],
   templateUrl: './medicine-search.html',
   styleUrl: './medicine-search.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MedicineSearch {
+export class MedicineSearch implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly medicineApi = inject(Medicine);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['brandName', 'code', 'registrationNumber', 'laboratoryHolder'];
+  protected readonly medicines = signal<MedicineTableRow[]>([]);
   protected readonly searchQuery = signal('');
 
   protected onSearchInput(event: Event): void {
     const input = event.target as HTMLInputElement | null;
     this.searchQuery.set(input?.value ?? '');
+  }
+
+  ngOnInit(): void {
+    this.medicineApi
+      .searchMedicines({
+        status: MedicineStatus.ACTIVE,
+      })
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.medicines.set(
+          (data?.medicinesSearch ?? []).map((medicine) => ({
+            brandName: medicine.brandName ?? '',
+            code: medicine.code ?? '',
+            registrationNumber: medicine.registrationNumber ?? '',
+            laboratoryHolder: medicine.laboratoryHolder ?? '',
+          })),
+        );
+      });
   }
 }

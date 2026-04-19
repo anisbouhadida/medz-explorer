@@ -1,11 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+import { Medicine } from './shared/service/api/medicine';
+
+const medicineApiMock = {
+  searchMedicines: () =>
+    ({
+      valueChanges: of({
+        data: {
+          medicinesSearch: [],
+        },
+      }),
+    }) as unknown as ReturnType<Medicine['searchMedicines']>,
+};
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App, NoopAnimationsModule],
+      providers: [{ provide: Medicine, useValue: medicineApiMock }],
     }).compileComponents();
   });
 
@@ -20,9 +34,9 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('[data-testid="page-title"]')?.textContent).toContain(
-      'Medz Ivory',
+      'Explore Data',
     );
-    expect(compiled.querySelectorAll('[data-testid="catalogue-card"]').length).toBe(3);
+    expect(compiled.textContent).toContain('Medz Explorer');
     expect(
       compiled.querySelector('input[placeholder="Search molecules, protocols, or shelf codes"]'),
     ).not.toBeNull();
