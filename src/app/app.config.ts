@@ -8,19 +8,20 @@ import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client';
 
+const GRAPHQL_ENDPOINT = '/graphql';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
-    provideHttpClient(),
     provideApollo(() => {
       const httpLink = inject(HttpLink);
 
       return {
         link: httpLink.create({
-          uri: '<%= endpoint %>',
+          uri: GRAPHQL_ENDPOINT,
         }),
         cache: new InMemoryCache(),
       };
