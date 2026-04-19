@@ -1,15 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -28,7 +21,6 @@ type MedicineTableRow = Pick<
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-    MatIconModule,
     MatTableModule,
     MatPaginatorModule,
   ],
@@ -36,34 +28,35 @@ type MedicineTableRow = Pick<
   styleUrl: './medicine-search.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MedicineSearch implements OnInit {
-  private readonly destroyRef = inject(DestroyRef);
+export class MedicineSearch {
   private readonly medicineApi = inject(Medicine);
 
   displayedColumns: string[] = ['brandName', 'code', 'registrationNumber', 'laboratoryHolder'];
-  protected readonly medicines = signal<MedicineTableRow[]>([]);
   protected readonly searchQuery = signal('');
 
-  protected onSearchInput(event: Event): void {
-    const input = event.target as HTMLInputElement | null;
-    this.searchQuery.set(input?.value ?? '');
-  }
-
-  ngOnInit(): void {
-    this.medicineApi
-      .searchMedicines({
-        status: MedicineStatus.ACTIVE,
-      })
-      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ data }) => {
-        this.medicines.set(
+  private readonly medicinesResource = rxResource({
+    params: () => {
+      const searchText = this.searchQuery();
+      return { ...(searchText ? { searchText } : {}), status: MedicineStatus.ACTIVE };
+    },
+    stream: ({ params }) =>
+      this.medicineApi.searchMedicines(params).valueChanges.pipe(
+        map(({ data }) =>
           (data?.medicinesSearch ?? []).map((medicine) => ({
             brandName: medicine.brandName ?? '',
             code: medicine.code ?? '',
             registrationNumber: medicine.registrationNumber ?? '',
             laboratoryHolder: medicine.laboratoryHolder ?? '',
           })),
-        );
-      });
+        ),
+      ),
+    defaultValue: [] as MedicineTableRow[],
+  });
+
+  protected readonly medicines = this.medicinesResource.value;
+
+  protected onSearchInput(event: Event): void {
+    const input = event.target as HTMLInputElement | null;
+    this.searchQuery.set(input?.value ?? '');
   }
 }
