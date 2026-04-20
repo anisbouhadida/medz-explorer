@@ -159,7 +159,7 @@ export type MedicineStatus = (typeof MedicineStatus)[keyof typeof MedicineStatus
 /**
  * @constant {Object} MedicineOrigin - An object containing the possible origins for medicines, such as MANUFACTURED (produced domestically) and IMPORTED (brought in from another country).
  */
-const MedicineOrigin = {
+export const MedicineOrigin = {
   MANUFACTURED: 'MANUFACTURED',
   IMPORTED: 'IMPORTED',
 } as const;
