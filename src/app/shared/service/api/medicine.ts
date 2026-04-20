@@ -91,9 +91,35 @@ const GET_MEDICINES_BY_REGISTRATION_NUMBER = gql`
 `;
 
 const SEARCH_MEDICINES = gql`
-  query SearchMedicines($filter: MedicineSearchFilter!) {
-    medicinesSearch(filter: $filter) {
-      ...MedicineFields
+  query SearchMedicines(
+    $filter: MedicineSearchFilter!
+    $first: Int
+    $after: String
+    $last: Int
+    $before: String
+    $sort: [MedicineSortInput!]
+  ) {
+    medicinesSearch(
+      filter: $filter
+      first: $first
+      after: $after
+      last: $last
+      before: $before
+      sort: $sort
+    ) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...MedicineFields
+        }
+      }
     }
   }
   ${MEDICINE_FIELDS}
@@ -106,8 +132,52 @@ export interface MedicineSearchFilter {
   laboratoryHolders?: string;
 }
 
+export const MedicineSortField = {
+  REGISTRATION_NUMBER: 'REGISTRATION_NUMBER',
+  BRAND_NAME: 'BRAND_NAME',
+  LABORATORY_HOLDER: 'LABORATORY_HOLDER',
+  INITIAL_REGISTRATION_DATE: 'INITIAL_REGISTRATION_DATE',
+} as const;
+export type MedicineSortField = (typeof MedicineSortField)[keyof typeof MedicineSortField];
+
+export const SortDirection = {
+  ASC: 'ASC',
+  DESC: 'DESC',
+} as const;
+export type SortDirection = (typeof SortDirection)[keyof typeof SortDirection];
+
+export interface MedicineSortInput {
+  field: MedicineSortField;
+  direction: SortDirection;
+}
+
+export interface MedicinePaginationArgs {
+  first?: number;
+  after?: string;
+  last?: number;
+  before?: string;
+}
+
+export interface PageInfo {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string | null;
+  endCursor: string | null;
+}
+
+export interface MedicineEdge {
+  cursor: string;
+  node: MedicineModel;
+}
+
+export interface MedicineConnection {
+  totalCount: number;
+  pageInfo: PageInfo;
+  edges: MedicineEdge[];
+}
+
 interface SearchMedicinesResponse {
-  medicinesSearch: MedicineModel[];
+  medicinesSearch: MedicineConnection;
 }
 
 @Injectable({
@@ -151,10 +221,16 @@ export class Medicine {
     });
   }
 
-  searchMedicines(filter: MedicineSearchFilter) {
+  searchMedicines(
+    filter: MedicineSearchFilter,
+    pagination: MedicinePaginationArgs = {},
+    sort: MedicineSortInput[] = [
+      { field: MedicineSortField.REGISTRATION_NUMBER, direction: SortDirection.ASC },
+    ],
+  ) {
     return this.apollo.watchQuery<SearchMedicinesResponse>({
       query: SEARCH_MEDICINES,
-      variables: { filter },
+      variables: { filter, ...pagination, sort },
     });
   }
 }
